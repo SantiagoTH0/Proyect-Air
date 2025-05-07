@@ -9,7 +9,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 def clasificar_calidad_aire(row):
-    # Valores límite según estándares internacionales
     if (row['PM25'] <= 12 and row['PM10'] <= 54 and 
         row['NO2'] <= 53 and row['O3'] <= 100):
         return 'Optimo'
@@ -22,24 +21,20 @@ def clasificar_calidad_aire(row):
     else:
         return 'Muy Contaminado'
 
-# Esta función simula la carga y limpieza automática de un archivo Excel
 def cargar_y_preprocesar_excel(path_excel= "c:\\Users\\estef\\Documents\\Proyect\\Proyect-Air\\data\\Reporte_Calidad_de_Aire.xlsx"):
     df = pd.read_excel(path_excel)
 
-    # Convertir la columna tiempo y extraer partes
     df['TIEMPO'] = pd.to_datetime(df['TIEMPO'], errors='coerce')
     df['AÑO'] = df['TIEMPO'].dt.year
     df['MES'] = df['TIEMPO'].dt.month
     df['DIA'] = df['TIEMPO'].dt.day
     df['HORA'] = df['TIEMPO'].dt.hour
 
-    # Procesar nombres de columnas
     df.columns = df.columns.str.normalize('NFKD')\
                           .str.encode('ascii', errors='ignore')\
                           .str.decode('ascii')\
                           .str.strip()
 
-    # Crear columnas agregadas para cada tipo de medición
     mediciones = {
         'PM10': 'PM10',
         'PM2,5': 'PM25',
@@ -53,52 +48,42 @@ def cargar_y_preprocesar_excel(path_excel= "c:\\Users\\estef\\Documents\\Proyect
         'RAD. SOLAR': 'Radiacion_solar'
     }
 
-    # Convertir todas las columnas a numéricas primero
     for col in df.columns:
         if col != 'TIEMPO':
             df[col] = pd.to_numeric(df[col], errors='coerce')
 
-    # Crear nuevas columnas agregadas
     for medicion_original, medicion_nueva in mediciones.items():
         columnas_medicion = [col for col in df.columns if medicion_original in col]
         if columnas_medicion:
             df[medicion_nueva] = df[columnas_medicion].mean(axis=1)
 
-    # Eliminar filas con datos faltantes en las columnas necesarias
     columnas_requeridas = ['PM10', 'PM25', 'NO2', 'O3', 'Temperatura', 'Lluvia',
                           'Humedad', 'Direccion_viento', 'Velocidad_viento', 'Radiacion_solar']
     df = df.dropna(subset=columnas_requeridas)
 
-    # Agregar clasificación de calidad del aire
     df['Calidad_Aire'] = df.apply(clasificar_calidad_aire, axis=1)
     
     return df
 
 def entrenar_modelo_calidad_aire(df):
-    # Preparar features (excluyendo tiempo y la variable objetivo)
     feature_columns = ['PM10', 'PM25', 'NO2', 'O3', 'Temperatura', 'Lluvia',
                       'Humedad', 'Direccion_viento', 'Velocidad_viento', 'Radiacion_solar']
     
     X = df[feature_columns]
     y = df['Calidad_Aire']
     
-    # División de datos
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     
-    # Entrenar modelo
     model = RandomForestClassifier(n_estimators=100, random_state=42)
     model.fit(X_train, y_train)
     
-    # Realizar predicciones
     predictions = model.predict(X_test)
     
-    # Calcular métricas
     accuracy = accuracy_score(y_test, predictions)
     precision = precision_score(y_test, predictions, average='weighted')
     recall = recall_score(y_test, predictions, average='weighted')
     conf_matrix = confusion_matrix(y_test, predictions)
     
-    # Imprimir métricas
     print("\nMétricas del Modelo:")
     print(f"Accuracy: {accuracy:.4f}")
     print(f"Precision: {precision:.4f}")
@@ -106,7 +91,6 @@ def entrenar_modelo_calidad_aire(df):
     print("\nReporte de Clasificación:")
     print(classification_report(y_test, predictions))
     
-    # Visualizar matriz de confusión
     plt.figure(figsize=(10, 8))
     sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues',
                 xticklabels=model.classes_,
@@ -116,7 +100,6 @@ def entrenar_modelo_calidad_aire(df):
     plt.xlabel('Predicción')
     plt.show()
     
-    # Visualizar predicciones vs valores reales
     plt.figure(figsize=(12, 6))
     predictions_df = pd.DataFrame({
         'Real': y_test,
@@ -133,7 +116,6 @@ def entrenar_modelo_calidad_aire(df):
     
     return model, X_test, y_test, predictions
 
-# Ejemplo de uso
 if __name__ == "__main__":
     df = cargar_y_preprocesar_excel()
     model, X_test, y_test, predictions = entrenar_modelo_calidad_aire(df)
