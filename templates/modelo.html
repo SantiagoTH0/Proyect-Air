@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Predicción de Calidad del Aire - Pereira</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
+</head>
+<body>
+
+<h2>Predicción de Calidad del Aire en Pereira</h2>
+
+<form method="POST" action="/predecir" enctype="multipart/form-data">
+  <label for="fecha">Fecha:</label>
+  <input type="date" name="fecha" required>
+
+  <label for="hora">Hora:</label>
+  <input type="time" name="hora" required>
+
+  <label for="estacion">Estación de Monitoreo:</label>
+  <select name="estacion" required>
+    <option value="">Seleccione una estación</option>
+    <option value="Centro">Centro</option>
+    <option value="Cuba">Cuba</option>
+    <option value="Parque Industrial">Parque Industrial</option>
+    <option value="Villa Santana">Villa Santana</option>
+    <option value="Universidad Tecnológica">Universidad Tecnológica</option>
+  </select>
+
+  <label for="lluvia">Lluvia (mm):</label>
+  <input type="number" step="0.1" name="lluvia" placeholder="Ej: 12.5" required>
+
+  <label for="temperatura">Temperatura (°C):</label>
+  <input type="number" step="0.1" name="temperatura" placeholder="Ej: 22.8" required>
+
+  <label for="radiacion">Radiación Solar (W/m²):</label>
+  <input type="number" step="0.1" name="radiacion" placeholder="Ej: 450.0" required>
+
+  <button type="submit">Predecir</button>
+</form>
+
+{% if prediccion %}
+<div class="resultado">
+  <h3>Predicción de calidad del aire: <span style="color: green;">{{ prediccion }}</span></h3>
+  {% if ruta_grafica %}
+    <img src="{{ url_for('static', filename=ruta_grafica) }}" alt="Gráfica de contaminantes">
+  {% endif %}
+</div>
+{% endif %}
+
+</body>
+</html>
