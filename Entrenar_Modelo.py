@@ -1,91 +1,87 @@
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.ensemble import RandomForestClassifier
+import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, precision_score, recall_score
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report, confusion_matrix
 import joblib
-import os
+from normalizar_datos import normalizar_datos
 
-def entrenar_modelo(df, exportar_modelo=True, ruta_modelo="modelo_calidad_aire.pkl", ruta_imagen="grafica_resultado.png"):
-    """
-    Entrena un modelo Random Forest para predecir la calidad del aire y genera una gráfica
-    con las métricas y estimación de contaminantes según la predicción.
+def entrenar_modelo():
+    try:
+        
+        datos = normalizar_datos()
+        
+        
+        columnas_requeridas = [
+            'MES', 'DIA', 'HORA', 'Estacion', 'Temperatura', 
+            'Lluvia', 'Humedad', 'Direccion_viento', 
+            'Velocidad_viento', 'Radiacion_solar', 'Calidad_Aire'
+        ]
+        
+        for columna in columnas_requeridas:
+            if columna not in datos.columns:
+                raise ValueError(f"Columna {columna} no encontrada en el dataset")
 
-    Args:
-        df (pd.DataFrame): Dataset con columnas: ['dia', 'hora', 'estacion', 'lluvia', 'temperatura', 'radiacion_solar', 'calidad_aire']
-        exportar_modelo (bool): Si se desea guardar el modelo entrenado.
-        ruta_modelo (str): Ruta para guardar el modelo entrenado.
-        ruta_imagen (str): Ruta donde se guardará la gráfica.
+        
+        X = datos.drop('Calidad_Aire', axis=1)
+        y = datos['Calidad_Aire']
 
-    Returns:
-        modelo (RandomForestClassifier): Modelo entrenado.
-        reporte (str): Reporte de clasificación.
-        ruta_imagen (str): Ruta de la imagen de la gráfica.
-    """
+        print("\nDatos originales antes de la transformación:")
+        print("Forma del DataFrame:", X.shape)
+        print("\nPrimeras 5 filas de datos originales:")
+        print(X.head())
+        print("\nTipos de datos originales:")
+        print(X.dtypes)
 
-    # Variables de entrada y salida
-    X = df[["dia", "hora", "estacion", "lluvia", "temperatura", "radiacion_solar"]]
-    y = df["calidad_aire"]
+       
+        X = pd.get_dummies(X, columns=['Estacion'])
 
-    # Si estación es categórica, convertirla
-    if X["estacion"].dtype == object:
-        X = pd.get_dummies(X, columns=["estacion"])
+        print("\n=== DESPUÉS DE LA TRANSFORMACIÓN ===")
+        print("\nColumnas después de crear variables dummy:")
+        print(X.columns.tolist())
+        print("\nForma del DataFrame transformado:", X.shape)
+        print("\nPrimeras 5 filas de datos transformados:")
+        print(X.head())
+        print("\nTipos de datos después de la transformación:")
+        print(X.dtypes)
+        print("\nEstadísticas descriptivas de los datos numéricos:")
+        print(X.describe())
 
-    # División
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+       
+        print("\nColumnas usadas en el entrenamiento:")
+        print(X.columns.tolist())
 
-    # Modelo
-    modelo = RandomForestClassifier(n_estimators=100, random_state=42)
-    modelo.fit(X_train, y_train)
+        
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=0.2, random_state=42
+        )
 
-    # Predicciones
-    y_pred = modelo.predict(X_test)
+        
+        modelo = RandomForestClassifier(
+            n_estimators=100,
+            max_depth=10,
+            random_state=42
+        )
+        
+        modelo.fit(X_train, y_train)
 
-    # Métricas
-    acc = accuracy_score(y_test, y_pred)
-    prec = precision_score(y_test, y_pred, average="macro", zero_division=0)
-    rec = recall_score(y_test, y_pred, average="macro", zero_division=0)
-    reporte = classification_report(y_test, y_pred)
+        
+        y_pred = modelo.predict(X_test)
+        print("\nReporte de Clasificación:")
+        print(classification_report(y_test, y_pred))
+        
+        print("\nMatriz de Confusión:")
+        print(confusion_matrix(y_test, y_pred))
 
-    print("Accuracy:", acc)
-    print("Precision:", prec)
-    print("Recall:", rec)
+        
+        joblib.dump(modelo, 'modelo_calidad_aire.pkl')
+        print("\nModelo guardado como 'modelo_calidad_aire.pkl'")
 
-    # Estimación de contaminantes según calidad del aire
-    promedio_contaminantes = {
-        1: {"PM2.5": 5, "PM10": 10, "NO2": 15, "O3": 20},
-        2: {"PM2.5": 10, "PM10": 20, "NO2": 25, "O3": 30},
-        3: {"PM2.5": 20, "PM10": 40, "NO2": 35, "O3": 45},
-        4: {"PM2.5": 30, "PM10": 60, "NO2": 50, "O3": 60},
-        5: {"PM2.5": 50, "PM10": 80, "NO2": 70, "O3": 80},
-    }
+        return True
 
-    # Cálculo promedio por clase predicha
-    clase_predicha = int(pd.Series(y_pred).mode()[0])
-    estimado = promedio_contaminantes.get(clase_predicha, {"PM2.5": 0, "PM10": 0, "NO2": 0, "O3": 0})
+    except Exception as e:
+        print(f"Error durante el entrenamiento: {str(e)}")
+        return False
 
-    # Gráfica
-    plt.figure(figsize=(10, 6))
-    sns.barplot(x=list(estimado.keys()), y=list(estimado.values()), palette="viridis")
-    plt.title(f"Predicción: Calidad Aire {clase_predicha}\nEstimación de contaminantes")
-    plt.xlabel("Contaminante")
-    plt.ylabel("Concentración estimada (µg/m³)")
-    plt.ylim(0, max(estimado.values()) + 10)
-    plt.grid(axis="y")
-
-    # Agregar métricas en el gráfico
-    texto_metricas = f"Accuracy: {acc:.2f}\nPrecision: {prec:.2f}\nRecall: {rec:.2f}"
-    plt.text(4.2, max(estimado.values()), texto_metricas, fontsize=10, verticalalignment="top")
-
-    # Guardar imagen
-    os.makedirs(os.path.dirname(ruta_imagen), exist_ok=True)
-    plt.tight_layout()
-    plt.savefig(ruta_imagen)
-    plt.close()
-
-    # Guardar modelo
-    if exportar_modelo:
-        joblib.dump(modelo, ruta_modelo)
-
-    return modelo, reporte, ruta_imagen
+if __name__ == "__main__":
+    entrenar_modelo()

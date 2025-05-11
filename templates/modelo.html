@@ -1,51 +1,141 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Predicción de Calidad del Aire - Pereira</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predicción de Calidad del Aire - Pereira</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='barraSup.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='modelo.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
+    {% include 'barraSup.html' %}
+    
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <h2>Predicción de Calidad del Aire</h2>
+                        <form method="POST" action="/predecir" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="mes">Mes (1-12):</label>
+                                        <input type="number" class="form-control" name="mes" id="mes" min="1" max="12" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="dia">Día (1-31):</label>
+                                        <input type="number" class="form-control" name="dia" id="dia" min="1" max="31" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="hora">Hora (0-23):</label>
+                                        <input type="number" class="form-control" name="hora" id="hora" min="0" max="23" required>
+                                    </div>
+                                </div>
+                            </div>
 
-<h2>Predicción de Calidad del Aire en Pereira</h2>
+                            <div class="mb-3">
+                                <label class="form-label" for="estacion">Estación:</label>
+                                <select class="form-control" name="estacion" id="estacion" required>
+                                    <option value="">Seleccione una estación</option>
+                                    <option value="La Ciudadela">La Ciudadela</option>
+                                    <option value="Lagos I">Lagos I</option>
+                                    <option value="Lagos del Cacique">Lagos del Cacique</option>
+                                    <option value="San Francisco">San Francisco</option>
+                                    <option value="Santa Cruz Girón">Santa Cruz Girón</option>
+                                </select>
+                            </div>
 
-<form method="POST" action="/predecir" enctype="multipart/form-data">
-  <label for="fecha">Fecha:</label>
-  <input type="date" name="fecha" required>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="temperatura">Temperatura (°C):</label>
+                                        <input type="number" class="form-control" step="0.1" name="temperatura" id="temperatura" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="lluvia">Lluvia (mm):</label>
+                                        <input type="number" class="form-control" step="0.1" name="lluvia" id="lluvia" min="0" required>
+                                    </div>
+                                </div>
+                            </div>
 
-  <label for="hora">Hora:</label>
-  <input type="time" name="hora" required>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="humedad">Humedad (%):</label>
+                                        <input type="number" class="form-control" step="0.1" name="humedad" id="humedad" min="0" max="100" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="direccion_viento">Dirección del Viento (0-360°):</label>
+                                        <input type="number" class="form-control" step="0.1" name="direccion_viento" id="direccion_viento" min="0" max="360" required>
+                                    </div>
+                                </div>
+                            </div>
 
-  <label for="estacion">Estación de Monitoreo:</label>
-  <select name="estacion" required>
-    <option value="">Seleccione una estación</option>
-    <option value="Centro">Centro</option>
-    <option value="Cuba">Cuba</option>
-    <option value="Parque Industrial">Parque Industrial</option>
-    <option value="Villa Santana">Villa Santana</option>
-    <option value="Universidad Tecnológica">Universidad Tecnológica</option>
-  </select>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="velocidad_viento">Velocidad del Viento (m/s):</label>
+                                        <input type="number" class="form-control" step="0.1" name="velocidad_viento" id="velocidad_viento" min="0" max="5" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="radiacion_solar">Radiación Solar (W/m²):</label>
+                                        <input type="number" class="form-control" step="0.1" name="radiacion_solar" id="radiacion_solar" min="0" max="1100" required>
+                                    </div>
+                                </div>
+                            </div>
 
-  <label for="lluvia">Lluvia (mm):</label>
-  <input type="number" step="0.1" name="lluvia" placeholder="Ej: 12.5" required>
+                            <button type="submit" class="btn btn-primary w-100">Predecir</button>
+                        </form>
 
-  <label for="temperatura">Temperatura (°C):</label>
-  <input type="number" step="0.1" name="temperatura" placeholder="Ej: 22.8" required>
+                        {% if prediccion %}
+                        <div class="resultado mt-4" data-aos="fade-up">
+                            <h3>Predicción de calidad del aire: 
+                                {% if prediccion == 1 %}
+                                    <span class="prediccion-valor text-success">Óptimo</span>
+                                {% elif prediccion == 2 %}
+                                    <span class="prediccion-valor text-warning">Moderado</span>
+                                {% elif prediccion == 3 %}
+                                    <span class="prediccion-valor text-orange">Contaminado</span>
+                                {% else %}
+                                    <span class="prediccion-valor text-danger">Muy Contaminado</span>
+                                {% endif %}
+                            </h3>
+                            {% if ruta_grafica %}
+                                <img src="{{ url_for('static', filename=ruta_grafica) }}" 
+                                     alt="Gráfica de contaminantes" 
+                                     class="img-fluid mt-3">
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <label for="radiacion">Radiación Solar (W/m²):</label>
-  <input type="number" step="0.1" name="radiacion" placeholder="Ej: 450.0" required>
-
-  <button type="submit">Predecir</button>
-</form>
-
-{% if prediccion %}
-<div class="resultado">
-  <h3>Predicción de calidad del aire: <span style="color: green;">{{ prediccion }}</span></h3>
-  {% if ruta_grafica %}
-    <img src="{{ url_for('static', filename=ruta_grafica) }}" alt="Gráfica de contaminantes">
-  {% endif %}
-</div>
-{% endif %}
-
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+    </script>
 </body>
 </html>
