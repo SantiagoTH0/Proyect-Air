@@ -25,6 +25,23 @@ def home():
 def modelo():
     return render_template('modelo.html')
 
+
+@app.route('/Entendimiento')
+def Entendimiento():
+    return render_template('Entendimiento.html')
+
+@app.route('/Ingenieria_datos')
+def Ingenieria_datos():
+    return render_template('Ingenieria_datos.html')
+
+@app.route('/Ingenieria_Modelo')
+def Ingenieria_Modelo():
+    return render_template('Ingenieria_Modelo.html')
+
+@app.route('/Evaluacion_Modelo')
+def Evaluacion_Modelo():
+    return render_template('Evaluacion_Modelo.html')
+
 @app.route('/predecir', methods=['GET', 'POST'])
 def predecir():
     if request.method == 'POST':
@@ -60,28 +77,22 @@ def predecir():
             })
 
             
-            # Cargar el modelo
             ruta_modelo = os.path.join(os.path.dirname(__file__), "modelo_calidad_aire.pkl")
             modelo = joblib.load(ruta_modelo)
 
-            # Realizar predicción
             prediccion = modelo.predict(datos)[0]
             probabilidades = modelo.predict_proba(datos)[0]
             
-            # Mostrar información detallada en la consola
             print("\n=== DETALLES DE LA PREDICCIÓN ===")
             print(f"\nPredicción realizada: Clase {prediccion}")
             
-            # Mostrar métricas del modelo
             from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
             
-            # Cargar datos de prueba
             datos_prueba = normalizar_datos()
             X = datos_prueba.drop('Calidad_Aire', axis=1)
             y = datos_prueba['Calidad_Aire']
             X = pd.get_dummies(X, columns=['Estacion'])
             
-            # Calcular predicciones en datos de prueba
             y_pred = modelo.predict(X)
             
             # Mostrar métricas
@@ -117,13 +128,10 @@ def predecir():
     return render_template('modelo.html')
 
 def generar_grafica_prediccion(prediccion, ruta_imagen):
-    # Configurar el backend de matplotlib para evitar warnings de GUI
     plt.switch_backend('Agg')
     
-    # Crear la figura y los subplots
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
 
-    # Matriz de confusión
     matriz_confusion = np.array([
         [0.92, 0.03, 0.03, 0.02],
         [0.04, 0.88, 0.05, 0.03],
@@ -138,7 +146,6 @@ def generar_grafica_prediccion(prediccion, ruta_imagen):
     ax1.set_xticklabels(['Óptimo', 'Moderado', 'Contaminado', 'Muy Cont.'])
     ax1.set_yticklabels(['Óptimo', 'Moderado', 'Contaminado', 'Muy Cont.'])
 
-    # Gráfico de métricas
     metricas = {
         'Precisión': 0.90,
         'Recall': 0.88,
@@ -146,7 +153,6 @@ def generar_grafica_prediccion(prediccion, ruta_imagen):
         'Exactitud': 0.91
     }
 
-    # Usar barplot con parámetros actualizados para evitar warning
     sns.barplot(data=pd.DataFrame(metricas.items(), columns=['Métrica', 'Valor']),
                 x='Métrica', y='Valor', ax=ax2)
     ax2.set_title('Métricas de Rendimiento del Modelo')
