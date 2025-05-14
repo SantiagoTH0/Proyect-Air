@@ -1,18 +1,42 @@
 <nav class="navbar">
-    <div class="container nav-container">
+    <div class="nav-container">
         <div class="logo">
-            <a href="#" class="navbar-brand">
+            <a href="/" class="navbar-brand">
                 <i class="fas fa-wind"></i>
                 Calidad de aire en Pereira
             </a>
         </div>
-        <div class="menu-icon" onclick="toggleMenu()">
+        
+        <div class="menu-toggle" id="menuToggle">
             <i class="fas fa-bars"></i>
         </div>
-        <div class="nav-menu">
-            <a href="#" class="nav-link">Inicio</a>
-            <a href="#prediction" class="nav-link">Predicción</a>
-            <a href="#team" class="nav-link">Equipo</a>
+        
+        <div class="nav-menu" id="navMenu">
+            <a href="/" class="nav-link">Inicio</a>
+            <a href="/modelo" class="nav-link">Predicción</a>
+            <a href="/Entendimiento" class="nav-link">Entendimiento del negocio y los datos</a>
+            <a href="/Ingenieria_datos" class="nav-link">Ingeniería de datos</a>
+            <a href="/Ingenieria_Modelo" class="nav-link">Ingeniería del modelo</a>
+            <a href="/Evaluacion_Modelo" class="nav-link">Evaluación del modelo</a>
+            <a href="#" class="nav-link">Equipo</a>
         </div>
     </div>
 </nav>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    
+    menuToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        navMenu.classList.toggle('active');
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+            navMenu.classList.remove('active');
+        }
+    });
+});
+</script>

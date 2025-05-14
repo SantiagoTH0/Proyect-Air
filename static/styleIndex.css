@@ -14,58 +14,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Navbar */
-.navbar {
-    background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
-    padding: 20px 0;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
 
-.nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-}
-
-.navbar-brand {
-    color: white;
-    text-decoration: none;
-    font-size: 1.5rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.navbar-brand i {
-    font-size: 1.8rem;
-}
-
-.nav-menu {
-    display: flex;
-    gap: 20px;
-}
-
-.nav-link {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    padding: 8px 16px;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-}
-
-.nav-link:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
-}
-
-/* Cards */
 .card {
     border: none;
     border-radius: 20px;
@@ -92,7 +41,6 @@ body {
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
 }
 
-/* Títulos */
 h1, h2 {
     background: var(--primary-gradient);
     -webkit-background-clip: text;
@@ -119,7 +67,6 @@ h1:hover::after, h2:hover::after {
     transform: scaleX(1);
 }
 
-/* Párrafos */
 p {
     line-height: 1.8;
     margin: 1.5rem 0;
@@ -134,7 +81,6 @@ p {
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
-/* Estaciones de monitoreo */
 .estacion {
     background: rgba(255, 255, 255, 0.9);
     margin-bottom: 15px;
@@ -161,7 +107,6 @@ p {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Formulario */
 .form-control {
     border: 2px solid #e0e0e0;
     border-radius: 15px;
@@ -191,7 +136,6 @@ p {
     box-shadow: 0 10px 20px rgba(30, 136, 229, 0.3);
 }
 
-/* Animaciones */
 [data-aos] {
     opacity: 0;
     transform: translateY(20px);
@@ -203,7 +147,6 @@ p {
     transform: translateY(0);
 }
 
-/* Animaciones del formulario */
 .mb-3 input {
     transform: translateX(-20px);
     opacity: 0;
@@ -217,7 +160,6 @@ p {
     }
 }
 
-/* Delays para los inputs */
 .mb-3:nth-child(1) input { animation-delay: 0.1s; }
 .mb-3:nth-child(2) input { animation-delay: 0.2s; }
 .mb-3:nth-child(3) input { animation-delay: 0.3s; }
@@ -227,7 +169,6 @@ p {
 .mb-3:nth-child(7) input { animation-delay: 0.7s; }
 .mb-3:nth-child(8) input { animation-delay: 0.8s; }
 
-/* Media queries */
 @media (max-width: 768px) {
     .menu-icon {
         display: block;
@@ -268,7 +209,6 @@ p {
     }
 }
 
-/* Estilo para listas de variables */
 ul:not(.estaciones-list) li {
     background: rgba(255, 255, 255, 0.8);
     margin-bottom: 15px;
@@ -304,7 +244,6 @@ ul:not(.estaciones-list) li:hover {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Cubículos Interactivos */
 .cubiculo-interactivo {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
@@ -368,7 +307,6 @@ ul:not(.estaciones-list) li:hover {
     opacity: 0.9;
 }
 
-/* Estilos específicos para cada cubículo */
 .cubiculo-interactivo.proteccion {
     background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(230,247,255,0.95));
 }
@@ -377,7 +315,6 @@ ul:not(.estaciones-list) li:hover {
     background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(230,255,238,0.95));
 }
 
-/* Animación al hover */
 @keyframes pulseIcon {
     0% { transform: scale(1); }
     50% { transform: scale(1.1); }
@@ -388,7 +325,6 @@ ul:not(.estaciones-list) li:hover {
     animation: pulseIcon 1s infinite;
 }
 
-/* Estilos para las tarjetas de consejos */
 .consejos-card {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
@@ -480,7 +416,7 @@ ul:not(.estaciones-list) li:hover {
     50% { transform: translateY(-5px); }
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
     .consejos-header {
         flex-direction: column;
@@ -508,7 +444,6 @@ ul:not(.estaciones-list) li:hover {
     }
 }
 
-/* Estilo para listas de variables */
 ul:not(.estaciones-list) li {
     background: rgba(255, 255, 255, 0.8);
     margin-bottom: 15px;

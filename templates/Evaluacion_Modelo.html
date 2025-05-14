@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ingeniería del Modelo</title>
+    <link href="{{ url_for('static', filename='barraSup.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='Evaluacion_Modelo.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    {% include 'barraSup.html' %}
+    
+    <div class="container mt-4">
+        <h1 data-aos="fade-right">Evaluación del Modelo</h1>
+
+        <section class="card mb-4" data-aos="fade-up">
+            <div class="card-body">
+                <h2>Métricas de desempeño</h2>
+                <p>Dado que el objetivo del modelo es predecir la calidad del aire clasificándola en diferentes categorías, se seleccionaron las siguientes métricas de clasificación:</p>
+                <ul class = "Metricas">
+                    <li><strong>Accuracy:</strong> Proporción total de predicciones correctas.</li>
+                    <li><strong>Precision:</strong> Capacidad del modelo para no clasificar incorrectamente una clase.</li>
+                    <li><strong>Recall:</strong> Capacidad del modelo para detectar correctamente los casos positivos de cada clase.</li>
+                    <li><strong>Matriz de Confusión:</strong> Permite visualizar el rendimiento de clasificación por clase y detectar errores sistemáticos.</li>
+
+                </ul>
+                <p>Estas métricas se generaron tras predecir con el conjunto de prueba (20%) no utilizado en el entrenamiento, asegurando una evaluación realista del rendimiento del modelo.</p>
+            </div>
+        </section>
+
+        <section class="card mb-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="card-body">
+                <h2>Validación cruzada</h2>
+                <p>No se aplicó una validación cruzada tradicional en esta versión del proyecto. Sin embargo, la partición 80/20 garantiza una validación básica separando los datos en subconjuntos independientes. Se considera incluir validación cruzada en futuras iteraciones si se quiere obtener una estimación más robusta del rendimiento del modelo.</p>
+            </div>
+        </section>
+
+        <section class="card mb-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="card-body">
+                <h2>Análisis de Riesgos</h2>
+                <p>Se identificaron y mitigaron posibles riesgos como:</p>
+                <ul class = "Riesgos">
+                    <li><strong>Sobreajuste:</strong> Se limitó la profundidad del modelo (max_depth=10) y se estableció un número razonable de árboles (n_estimators=100) para evitar que el modelo memorice los datos.</li>
+                    <li><strong>Subajuste:</strong> Se verificó que el modelo tuviera un rendimiento aceptable en precisión y recall, lo cual indica que está capturando patrones significativos.</li>
+                    <li><strong>Sesgos:</strong> Se realizó limpieza previa de errores de codificación (por ejemplo, GIRÃ“N) y se verificó la consistencia de los datos para evitar sesgos por calidad de entrada.</li>
+                </ul>                    
+                
+        </section>
+
+        <section class="card mb-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="card-body">
+                <h2>Revisión con expertos</h2>
+                <p>Actualmente, no se ha realizado una validación formal con expertos en calidad del aire. Sin embargo, el modelo está preparado para ser revisado por especialistas ambientales que puedan:</p>
+                <ul class = "Archivos">
+                    <li>Validar la lógica de las predicciones.</li>
+                    <li>Determinar si las variables para la predicción calidad del aire utilizadas son adecuadas y comprensibles.</li>
+                    <li>Sugerir ajustes adicionales</li>
+                
+            </div>
+        </section>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>

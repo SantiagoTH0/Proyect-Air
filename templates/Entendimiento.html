@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Entendimiento del Negocio y los Datos</title>
+    <link href="{{ url_for('static', filename='barraSup.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='Entendimiento.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    {% include 'barraSup.html' %}
+    
+    <div class="container mt-4">
+        <h1 data-aos="fade-right">Entendimiento del Negocio y los Datos</h1>
+
+        <section class="card mb-4" data-aos="fade-up">
+            <div class="card-body">
+                <h2>Objetivos de Negocio</h2>
+                <ul class="objetivos-list">
+                    <li>Desarrollar un modelo predictivo que permita anticipar los niveles de contaminación del aire en Pereira.</li>
+                    <li>Ayudar a la reducción y mejora de la contaminación del aire y, con ello, reducir enfermedades respiratorias ocasionadas por la contaminación.</li>
+                    <li>Contribuir en la toma de decisiones de medidas preventivas oportunas.</li>
+                    <li>Apoyar los Objetivos de Desarrollo Sostenible (ODS): ODS 3 (Salud y Bienestar), ODS 11 (Ciudades Sustentables) y ODS 13 (Acción por el Clima).</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="card mb-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="card-body">
+                <h2>Preguntas Clave</h2>
+                <ul class="preguntas-list">
+                    <li>¿Qué variables o datos influyen más significativamente en la calidad del aire en Pereira?</li>
+                    <li>¿Podemos predecir anticipadamente la contaminación crítica en zonas específicas?</li>
+                    <li>¿Con qué anticipación se pueden predecir episodios críticos de contaminación?</li>
+                    <li>¿Cómo varía la contaminación según las zonas geográficas y temporadas específicas?</li>
+                    <li>¿Qué beneficios traerá predecir la contaminación del aire antes de que ocurra?</li>
+                    <li>¿Qué niveles de predicción necesita el modelo para ser realmente útil?</li>
+                    <li>¿Qué limitaciones tiene el dataset?</li>
+                    <li>¿Qué medidas preventivas podrían ser más efectivas según las predicciones del modelo?</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="card mb-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="card-body">
+                <h2>Evaluación de los Datos</h2>
+                <ul class="evaluacion-list">
+                    <li>Estaciones identificadas: Lagos I F/Blanca, La Ciudadela, Santa Cruz Girón, San Francisco y Lagos del Cacique.</li>
+                    <li>Columnas bien definidas y claras: estación y tipo de medición.</li>
+                    <li>Transformar la columna de tiempo para extraer año, mes, día y hora.</li>
+                    <li>Convertir columnas de medición (PM10, temperatura, etc.) a formato numérico válido.</li>
+                    <li>Codificar caracteres en UTF-8 para corregir errores como "GIRÃ“N".</li>
+                    <li>Estandarizar nombres de estaciones eliminando símbolos y espacios innecesarios.</li>
+                    <li>Verificar y tratar valores faltantes.</li>
+                    <li>Detectar datos fuera de rango (temperaturas extremas o valores negativos).</li>
+                    <li>Reorganizar el dataset para facilitar el análisis: TIEMPO | ESTACION | PM10 | PM2.5 | ...</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="card mb-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="card-body">
+                <h2>Análisis de Viabilidad del Proyecto</h2>
+                
+                <div class="viabilidad-section">
+                    <h3>Técnica:</h3>
+                    <ul class="tecnica-list">
+                        <li>Datos disponibles y con registros detallados por estación y tiempo.</li>
+                        <li>Modelos de machine learning aplicables: Árboles de Decisión, Random Forest, Regresión Logística.</li>
+                        <li>Requiere recursos computacionales razonables.</li>
+                        <li>Posibilidad de crear nuevas variables a partir de los datos existentes.</li>
+                        <li>Factible automatizar la limpieza de datos.</li>
+                        <li>Riesgos: nombres inconsistentes en estaciones, ruido y riesgo de sobreajuste por muchas variables.</li>
+                    </ul>
+                </div>
+
+                <div class="viabilidad-section">
+                    <h3>Organizacional:</h3>
+                    <ul class="organizacional-list">
+                        <li>Foco claro: predecir la calidad del aire.</li>
+                        <li>Impacto social relevante: utilidad para autoridades ambientales y de salud pública.</li>
+                        <li>Los datos tienen una estructura comprensible para actores no técnicos.</li>
+                        <li>Riesgos: posible resistencia de autoridades a actuar solo con base en predicciones estadísticas.</li>
+                        <li>Requiere mantenimiento continuo para mantenerse actualizado.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>

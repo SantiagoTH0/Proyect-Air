@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ingeniería del Modelo</title>
+   
+    <link href="{{ url_for('static', filename='barraSup.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='Ingenieria_Modelo.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    {% include 'barraSup.html' %}
+    
+    <div class="container mt-4">
+        <h1 data-aos="fade-right">Ingeniería del Modelo</h1>
+
+        <section class="card mb-4" data-aos="fade-up">
+            <div class="card-body">
+                <h2>Selección de algoritmo</h2>
+                <p>Se seleccionó el algoritmo de clasificación Random Forest debido a su capacidad para manejar grandes volúmenes de datos con múltiples características, su resistencia al sobreajuste y su alto rendimiento en problemas multiclase como la predicción de la calidad del aire.</p>
+
+            </div>
+        </section>
+
+        <section class="card mb-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="card-body">
+                <h2>Entrenamiento</h2>
+                <p>Los datos fueron divididos en un conjunto de entrenamiento (80%) y uno de prueba (20%), con el objetivo de evaluar el rendimiento del modelo de forma objetiva. El modelo fue entrenado con los datos preparados y transformados previamente, incluyendo la nueva variable <strong>calidad_aire</strong> como etiqueta de clasificación.</p>
+            </div>
+        </section>
+
+        <section class="card mb-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="card-body">
+                <h2>Validación</h2>
+                <p>Para verificar el desempeño del modelo, se utilizaron métricas con los datos de prueba (no vistos durante el entrenamiento), incluyendo:</p>
+                 <ul class = "Validacion">
+                    <li><strong>Accuracy</strong></li>
+                    <li><strong>Precision</strong></li>
+                    <li><strong>Recall</strong></li>
+                    <li><strong>Matriz de confusión</strong></li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="card mb-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="card-body">
+                <h2>Ajuste de hiperparámetros</h2>
+                <p>Para optimizar el rendimiento del modelo, se ajustaron manualmente los hiperparámetros del clasificador Random Forest. Se definió un número de árboles (n_estimators) igual a 100 y una profundidad máxima (max_depth) de 10, valores seleccionados en función de pruebas experimentales previas. Aunque no se realizó una búsqueda automatizada, esta configuración ofreció un equilibrio entre precisión y complejidad del modelo, por lo que el ajuste se resume a: </p>
+                <ul class="Ajustes">
+                    <li>n_estimators = 100 (número de árboles en el bosque)</li>
+                    <li>max_depth = 10 (profundidad máxima de cada árbol)</li>
+                    <li>random_state = 42 (para garantizar reproducibilidad)</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>

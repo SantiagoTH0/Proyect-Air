@@ -3,94 +3,102 @@
     --primary-gradient: linear-gradient(135deg, #1e88e5 0%, #00c853 100%);
 }
 
-
 .navbar {
     background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
-    padding: 20px 0;
+    padding: 15px 0;
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    height: 70px;
+    display: flex;
+    align-items: center;
 }
 
 .nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     padding: 0 20px;
+    position: relative;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
 }
 
 .navbar-brand {
     color: white;
     text-decoration: none;
     font-size: 1.5rem;
-    font-weight: 600;
+    font-weight: 700;
     display: flex;
     align-items: center;
     gap: 10px;
+    white-space: nowrap;
 }
 
 .navbar-brand i {
     font-size: 1.8rem;
 }
 
+.menu-toggle {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: white;
+    padding: 10px;
+    z-index: 1001;
+    position: fixed;
+    left: 20px;
+}
+
 .nav-menu {
+    position: fixed;
+    top: 70px;
+    left: -250px;
+    width: 225px;
+    height: calc(100vh - 70px);
+    background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
     display: flex;
-    gap: 20px;
+    flex-direction: column;
+    padding: 20px 0;
+    overflow-y: auto;
+}
+
+.nav-menu.active {
+    transform: translateX(250px);
 }
 
 .nav-link {
     color: white;
     text-decoration: none;
-    font-weight: 500;
-    padding: 8px 16px;
-    border-radius: 20px;
+    padding: 15px 25px;
     transition: all 0.3s ease;
+    border-right: 4px solid transparent;
+    font-weight: 500;
+    text-align: left;
+    display: block;
+    width: 100%;
 }
 
 .nav-link:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.1);
+    border-right: 4px solid #ffffff;
 }
-
 
 @media (max-width: 768px) {
-    .menu-icon {
-        display: block;
-    }
-
     .nav-menu {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
-        flex-direction: column;
-        padding: 20px;
-        gap: 15px;
-        display: none;
-        text-align: center;
-    }
-
-    .nav-menu.active {
-        display: flex;
-        animation: slideDown 0.3s ease forwards;
-    }
-
-    .nav-link {
         width: 100%;
-        padding: 12px;
+        left: -100%;
     }
-}
-
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    
+    .nav-menu.active {
+        transform: translateX(100%);
     }
 }

@@ -26,31 +26,13 @@ def entrenar_modelo():
         X = datos.drop('Calidad_Aire', axis=1)
         y = datos['Calidad_Aire']
 
-        print("\nDatos originales antes de la transformación:")
-        print("Forma del DataFrame:", X.shape)
-        print("\nPrimeras 5 filas de datos originales:")
-        print(X.head())
-        print("\nTipos de datos originales:")
-        print(X.dtypes)
-
+       
        
         X = pd.get_dummies(X, columns=['Estacion'])
 
-        print("\n=== DESPUÉS DE LA TRANSFORMACIÓN ===")
-        print("\nColumnas después de crear variables dummy:")
-        print(X.columns.tolist())
-        print("\nForma del DataFrame transformado:", X.shape)
-        print("\nPrimeras 5 filas de datos transformados:")
-        print(X.head())
-        print("\nTipos de datos después de la transformación:")
-        print(X.dtypes)
-        print("\nEstadísticas descriptivas de los datos numéricos:")
-        print(X.describe())
-
+      
+    
        
-        print("\nColumnas usadas en el entrenamiento:")
-        print(X.columns.tolist())
-
         
         X_train, X_test, y_train, y_test = train_test_split(
             X, y, test_size=0.2, random_state=42
