@@ -14,12 +14,10 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Estilos específicos para la página de predicción */
 .container {
     padding-top: 2rem;
 }
 
-/* Estilos del formulario */
 .form-control {
     border: 2px solid #e0e0e0;
     border-radius: 15px;
@@ -40,7 +38,6 @@ body {
     margin-bottom: 0.5rem;
 }
 
-/* Estilos del botón */
 .btn-primary {
     padding: 12px 30px;
     border-radius: 25px;
@@ -56,7 +53,6 @@ body {
     box-shadow: 0 8px 20px rgba(30, 136, 229, 0.2);
 }
 
-/* Estilos de la tarjeta */
 .card {
     border: none;
     border-radius: 20px;
@@ -75,7 +71,6 @@ body {
     background: var(--primary-gradient);
 }
 
-/* Estilos para el resultado */
 .resultado {
     background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(230,247,255,0.95));
     padding: 2rem;
@@ -104,7 +99,6 @@ body {
     margin-top: 1rem;
 }
 
-/* Animaciones */
 @keyframes slideIn {
     from {
         opacity: 0;
@@ -116,7 +110,7 @@ body {
     }
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
     .container {
         padding-top: 1rem;

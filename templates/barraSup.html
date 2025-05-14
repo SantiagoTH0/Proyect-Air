@@ -6,13 +6,31 @@
                 Calidad de aire en Pereira
             </a>
         </div>
-        <div class="menu-icon" onclick="toggleMenu()">
+        <div class="menu-icon" onclick="toggleMenu()" aria-label="Toggle menu">
             <i class="fas fa-bars"></i>
         </div>
-        <div class="nav-menu">
+       
+        <div class="nav-menu" id="nav-menu">
             <a href="{{ url_for('home') }}" class="nav-link">Inicio</a>
             <a href="{{ url_for('modelo') }}" class="nav-link">Predicción</a>
+            <a href="{{ url_for('Entendimiento') }}" class="nav-link">Entendimiento del negocio y los datos</a>
+            <a href="{{ url_for('Ingenieria_datos') }}" class="nav-link">Ingeniería de datos</a>
+            <a href="{{ url_for('Ingenieria_Modelo') }}" class="nav-link">Ingeniería del modelo</a>
+            <a href="{{ url_for('Evaluacion_Modelo') }}" class="nav-link">Evaluación del modelo</a>
             <a href="#team" class="nav-link">Equipo</a>
         </div>
     </div>
 </nav>
+
+<script>
+function toggleMenu() {
+    const navMenu = document.getElementById('nav-menu');
+    navMenu.classList.toggle('active');
+}
+
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+        document.getElementById('nav-menu').classList.remove('active');
+    });
+});
+</script>
