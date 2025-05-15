@@ -1,6 +1,7 @@
-    body {
+body {
       font-family: Arial, sans-serif;
       background-color: #eef5f7;
+      padding-top: 90px;
       padding: 20px;
     }
     h2 {

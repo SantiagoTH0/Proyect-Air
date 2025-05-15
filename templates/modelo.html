@@ -106,18 +106,52 @@
                             <h3>Predicción de calidad del aire: 
                                 {% if prediccion == 1 %}
                                     <span class="prediccion-valor text-success">Óptimo</span>
+                                    <div class="consejos-container mt-3">
+                                        <h4><i class="fas fa-leaf me-2"></i>Recomendaciones:</h4>
+                                        <ul class="list-group">
+                                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>Excelente momento para actividades al aire libre</li>
+                                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>Ideal para ejercicio en espacios abiertos</li>
+                                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>Disfrute de actividades recreativas en parques</li>
+                                        </ul>
+                                    </div>
                                 {% elif prediccion == 2 %}
                                     <span class="prediccion-valor text-warning">Moderado</span>
+                                    <div class="consejos-container mt-3">
+                                        <h4><i class="fas fa-exclamation-triangle me-2"></i>Recomendaciones:</h4>
+                                        <ul class="list-group">
+                                            <li class="list-group-item"><i class="fas fa-info-circle text-warning me-2"></i>Personas sensibles deben reducir actividades prolongadas al aire libre</li>
+                                            <li class="list-group-item"><i class="fas fa-info-circle text-warning me-2"></i>Considere realizar ejercicio en interiores</li>
+                                            <li class="list-group-item"><i class="fas fa-info-circle text-warning me-2"></i>Mantenga ventanas cerradas durante horas pico</li>
+                                        </ul>
+                                    </div>
                                 {% elif prediccion == 3 %}
                                     <span class="prediccion-valor text-orange">Contaminado</span>
+                                    <div class="consejos-container mt-3">
+                                        <h4><i class="fas fa-smog me-2"></i>Recomendaciones:</h4>
+                                        <ul class="list-group">
+                                            <li class="list-group-item"><i class="fas fa-exclamation-circle text-orange me-2"></i>Evite actividades al aire libre prolongadas</li>
+                                            <li class="list-group-item"><i class="fas fa-exclamation-circle text-orange me-2"></i>Use mascarilla en espacios abiertos</li>
+                                            <li class="list-group-item"><i class="fas fa-exclamation-circle text-orange me-2"></i>Mantenga cerradas puertas y ventanas</li>
+                                        </ul>
+                                    </div>
                                 {% else %}
                                     <span class="prediccion-valor text-danger">Muy Contaminado</span>
+                                    <div class="consejos-container mt-3">
+                                        <h4><i class="fas fa-skull-crossbones me-2"></i>Recomendaciones:</h4>
+                                        <ul class="list-group">
+                                            <li class="list-group-item"><i class="fas fa-radiation-alt text-danger me-2"></i>Permanezca en interiores tanto como sea posible</li>
+                                            <li class="list-group-item"><i class="fas fa-radiation-alt text-danger me-2"></i>Use mascarilla N95 si debe salir</li>
+                                            <li class="list-group-item"><i class="fas fa-radiation-alt text-danger me-2"></i>Evite completamente el ejercicio al aire libre</li>
+                                        </ul>
+                                    </div>
                                 {% endif %}
                             </h3>
                             {% if ruta_grafica %}
-                                <img src="{{ url_for('static', filename=ruta_grafica) }}" 
-                                     alt="Gráfica de contaminantes" 
-                                     class="img-fluid mt-3">
+                                <div class="grafica-container mt-4">
+                                    <img src="{{ url_for('static', filename=ruta_grafica) }}" 
+                                         alt="Gráfica de contaminantes" 
+                                         class="img-fluid rounded shadow">
+                                </div>
                             {% endif %}
                         </div>
                         {% endif %}
