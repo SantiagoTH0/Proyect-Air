@@ -248,5 +248,8 @@ def descargar_excel():
         print(f"Error al generar Excel: {str(e)}")  # Para debugging
         return "Error al generar el archivo Excel", 500
 
+@app.route('/equipo')
+def equipo():
+    return render_template('equipo.html')
 if __name__ == '__main__':
     app.run(debug=True)
