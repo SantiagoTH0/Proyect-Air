@@ -113,9 +113,21 @@ def predecir():
             ruta_imagen = os.path.join(app.static_folder, 'grafica_resultado.png')
             generar_grafica_prediccion(prediccion, ruta_imagen)
 
+            # Calcular métricas
+            metricas = {
+                'confusion_matrix': str(confusion_matrix(y, y_pred)),
+                'classification_report': str(classification_report(y, y_pred)),
+                'accuracy': f"{accuracy_score(y, y_pred):.2%}",
+                'feature_importance': {
+                    str(feature): f"{float(importance):.4f}" 
+                    for feature, importance in zip(datos.columns, modelo.feature_importances_)
+                }
+            }
+
             return render_template('modelo.html', 
                                 prediccion=prediccion,
-                                ruta_grafica='grafica_resultado.png')
+                                ruta_grafica='grafica_resultado.png',
+                                metricas=metricas)
 
         except Exception as e:
             import traceback

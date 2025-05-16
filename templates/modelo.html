@@ -146,6 +146,54 @@
                                     </div>
                                 {% endif %}
                             </h3>
+                            <div class="consejos-container mt-3">
+                                
+                                   
+
+                                {% if metricas %}
+                                <div class="mt-4">
+                                    <h4><i class="fas fa-chart-line me-2"></i>Métricas del Modelo</h4>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h5>Matriz de Confusión:</h5>
+                                            <pre class="bg-light p-3 rounded" style="white-space: pre-wrap;">{{ metricas.confusion_matrix }}</pre>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h5>Reporte de Clasificación:</h5>
+                                            <pre class="bg-light p-3 rounded" style="white-space: pre-wrap;">{{ metricas.classification_report }}</pre>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-4">
+                                        <h5>Exactitud (Accuracy):</h5>
+                                        <p class="lead bg-light p-3 rounded">{{ metricas.accuracy }}</p>
+                                    </div>
+                                    
+                                    <div class="mt-4">
+                                        <h5>Importancia de características:</h5>
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Característica</th>
+                                                        <th>Importancia</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for feature, importance in metricas.feature_importance.items() %}
+                                                    <tr>
+                                                        <td>{{ feature }}</td>
+                                                        <td>{{ importance }}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                            
                             {% if ruta_grafica %}
                                 <div class="grafica-container mt-4">
                                     <img src="{{ url_for('static', filename=ruta_grafica) }}" 
