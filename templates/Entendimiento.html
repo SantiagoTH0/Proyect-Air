@@ -30,14 +30,33 @@
             <div class="card-body">
                 <h2>Preguntas Clave</h2>
                 <ul class="preguntas-list">
-                    <li>¿Qué variables o datos influyen más significativamente en la calidad del aire en Pereira?</li>
-                    <li>¿Podemos predecir anticipadamente la contaminación crítica en zonas específicas?</li>
-                    <li>¿Con qué anticipación se pueden predecir episodios críticos de contaminación?</li>
-                    <li>¿Cómo varía la contaminación según las zonas geográficas y temporadas específicas?</li>
-                    <li>¿Qué beneficios traerá predecir la contaminación del aire antes de que ocurra?</li>
-                    <li>¿Qué niveles de predicción necesita el modelo para ser realmente útil?</li>
-                    <li>¿Qué limitaciones tiene el dataset?</li>
-                    <li>¿Qué medidas preventivas podrían ser más efectivas según las predicciones del modelo?</li>
+                    <li>¿Qué variables o datos influyen más significativamente en la calidad del aire en Pereira? 
+                        <p>- Aunque el modelo fue entrenado con variables ambientales como PM10, PM2.5, NO2, O3, Temperatura, Lluvia, Humedad, Dirección, y velocidad del viento, Radiación solar, estaciones de Pereira, y tiempo, en la realización del random forest se visualizó una importancia entre algunas de estas, pues variables como PM10, PM2.5, NO3, O2, temperatura y humedad suelen tener una influencia más significativa en la calidad del aire. </p>
+                    </li>
+                    <li>¿Podemos predecir anticipadamente la contaminación crítica en zonas específicas?
+                        <p>- Si, en el modelo se evidencia la posibilidad de predecir la contaminación de manera anticipada del aire, en este caso, el modelo predice la categoría del aire basándose en las variables mencionadas anteriormente, a las cuales se centran en condiciones climáticas y ubicación, lo que es útil para anticipar eventos críticos en estaciones específicas.</p>
+                    </li>
+                    <li>¿Con qué anticipación se pueden predecir episodios críticos de contaminación?
+                        <p>- En este caso, el modelo permite hacer predicciones con datos históricos incluso de largo plazo, por lo que puede anticipar la calidad del aire con meses de anticipación, por lo que, si se cuenta con información anticipada sobre el clima y condiciones ambientales, es posible predecir episodios críticos incluso con un año de anticipación </p>
+                    </li>
+                    <li>¿Cómo varía la contaminación según las zonas geográficas y temporadas específicas?
+                        <p>- Con los datos históricos que posee el dataset, es posible identificar ciertos patrones, pues ciertas estaciones pueden tener mayor contaminación según la cercanía a zonas industriales o tráfico vehicular. También se pueden observar variaciones estacionales en donde se ven más partículas en temporada seca.</p>
+                    </li>
+                    <li>¿Qué beneficios traerá predecir la contaminación del aire antes de que ocurra?
+                        <p>- Permite activar alertas tempranas, tomar medidas preventivas con anticipación tanto para la salud pública como para la prevención de contaminación, como restricciones vehiculares, o actividades al aire libre, y proteger a poblaciones vulnerables. </p>
+                    </li>
+                    <li>¿Qué niveles de predicción necesita el modelo para ser realmente útil?
+                        <p>- Para ser útil, el modelo debe alcanzar métricas como accuracy y recall aceptables, como, por ejemplo, mayores al 80%, especialmente en clases que se consideran de mayor riesgo, como contaminada o muy contaminada. También debe tener baja tasa de falsos negativos y ser capaz de adaptarse a nuevos datos rápidamente. </p>
+                    </li>
+                    <li>¿Qué medidas preventivas podrían ser más efectivas según las predicciones del modelo?
+                        <ol>
+                            <li>Restringir actividades al aire libre en zonas con alta probabilidad de mala calidad del aire.</li>
+                            <li>Implementar restricciones vehiculares temporales.</li>
+                            <li>Alertas ciudadanas en tiempo real a través de apps o medios locales.</li>
+                            <li>Incrementar monitoreo en estaciones identificadas como críticas.</li>
+                            <li>Campañas de concientización cuando se anticipen eventos contaminantes.</li>
+                        </ol>
+                    </li>
                 </ul>
             </div>
         </section>
@@ -46,6 +65,7 @@
             <div class="card-body">
                 <h2>Evaluación de los Datos</h2>
                 <ul class="evaluacion-list">
+                    <p>Basado en el conjunto de datos seleccionado para el proyecto, obtenido desde el portal datos.gov.co y que registra información sobre la calidad del aire en diferentes estaciones de Pereira, se realizó un análisis inicial en el cual se identificaron las siguientes características y necesidades de limpieza:</p>
                     <li>Estaciones identificadas: Lagos I F/Blanca, La Ciudadela, Santa Cruz Girón, San Francisco y Lagos del Cacique.</li>
                     <li>Columnas bien definidas y claras: estación y tipo de medición.</li>
                     <li>Transformar la columna de tiempo para extraer año, mes, día y hora.</li>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestro equipo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='barraSup.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='equipo.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    {% include 'barraSup.html' %}
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card shadow-lg" data-aos="fade-up">
+                    <div class="card-body p-5">
+                        <h2 class="text-center mb-4">
+                            <i class="fas fa-users me-2"></i>Nuestro Equipo
+                        </h2>
+                        <div class="text-center mb-5">
+                            <img src="{{ url_for('static', filename='img/Equipo.png') }}" 
+                                 alt="Equipo de desarrollo" 
+                                 class="img-fluid rounded team-image"
+                                 style="max-width: 400px;">
+                        </div>
+                        <div class="team-section">
+                            <div class="row mb-5">
+                                <div class="col-md-6 mb-4" data-aos="fade-right">
+                                    <div class="team-member">
+                                        <div class="member-info text-center">
+                                            <h4 class="mb-3">Esteffy Bachiller</h4>
+                                            <p class="text-muted">Estudiante de Ingeniería de Sistemas</p>
+                                            <div class="member-description">
+                                                <p>"La que tira el chiste para no llorar"</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6 mb-4" data-aos="fade-left">
+                                    <div class="team-member">
+                                        <div class="member-info text-center">
+                                            <h4 class="mb-3">Santiago Torres</h4>
+                                            <p class="text-muted">Estudiante de Ingeniería de Sistemas</p>
+                                            <div class="member-description">
+                                                <p>"El que se toma las cosas en serio"</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="project-description" data-aos="fade-up">
+                                <h3 class="mb-4"><i class="fas fa-lightbulb me-2"></i>Sobre el Proyecto</h3>
+                                <div class="card bg-light">
+                                    <div class="card-body">
+                                        <p class="lead mb-3">
+                                            Somos estudiantes de sexto semestre de Ingeniería de Sistemas en la Universidad de Cundinamarca, trabajando en una herramienta innovadora para predecir la calidad del aire en Pereira como parte de nuestra profundización en Machine Learning.
+                                        </p>
+                                        <p class="lead mb-3">
+                                            Nuestro objetivo es transformar algoritmos complejos en una herramienta práctica y útil para la comunidad, ayudando a las personas a tomar mejores decisiones sobre sus actividades al aire libre.
+                                        </p>
+                                        <p class="lead">
+                                            Este proyecto representa nuestra pasión por aplicar la tecnología para resolver problemas reales y mejorar la calidad de vida de las personas.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+    </script>
+</body>
+</html>
