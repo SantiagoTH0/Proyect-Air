@@ -77,9 +77,13 @@ def predecir():
             })
 
             
+            # Verificar que el archivo del modelo existe
             ruta_modelo = os.path.join(os.path.dirname(__file__), "modelo_calidad_aire.pkl")
+            if not os.path.exists(ruta_modelo):
+                raise FileNotFoundError(f"El archivo del modelo no existe en: {ruta_modelo}")
+                
             modelo = joblib.load(ruta_modelo)
-
+            
             prediccion = modelo.predict(datos)[0]
             probabilidades = modelo.predict_proba(datos)[0]
             
@@ -131,9 +135,13 @@ def predecir():
 
         except Exception as e:
             import traceback
+            import sys
             print(f"Error detallado: {str(e)}")
             print("Traceback completo:")
             print(traceback.format_exc())
+            # Registrar el error en los logs de Render
+            sys.stderr.write(f"Error en predicción: {str(e)}\n")
+            sys.stderr.write(traceback.format_exc())
             return render_template('modelo.html', 
                                 error=f"Error en la predicción: {str(e)}")
     
@@ -264,4 +272,7 @@ def descargar_excel():
 def equipo():
     return render_template('equipo.html')
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Obtener el puerto del entorno o usar 5000 como predeterminado
+    port = int(os.environ.get("PORT", 5000))
+    # Ejecutar la aplicación en 0.0.0.0 para que sea accesible externamente
+    app.run(host='0.0.0.0', port=port)
